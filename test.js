@@ -34,6 +34,7 @@ test('convert four digit to words', function (t) {
 test('convert five digit to words', function (t) {
   t.equal(wordifier(40000), "forty thousand");
   t.equal(wordifier(10001), "ten thousand one");
+  t.equal(wordifier(83959), "eighty three thousand nine hundred fifty nine");
   t.end();
 });
 
