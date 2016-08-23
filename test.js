@@ -17,6 +17,9 @@ test('convert two digit to words', function (t) {
 });
 
 test('convert three digit to words', function (t) {
+  t.equal(wordifier(200), "two hundred");
+  t.equal(wordifier(101), "one hundred one");
   t.equal(wordifier(469), "four hundred sixty nine");
+  t.equal(wordifier(999), "nine hundred ninety nine");
   t.end();
 });

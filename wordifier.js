@@ -40,9 +40,16 @@ function wordifier(number){
     return transforms[number];
   }
   else if (output.length === 3){
-    var hundreds = output.splice(0, 1);
-    var rest = parseInt(output.join());
-    return transforms[hundreds] + " hundred" + wordifier(rest);
+    if (output[1] === 0 && output[2] === 0) {
+      var hundreds = output.splice(0, 1);
+      return transforms[hundreds] + " hundred";
+    } else if (output[1] === 0){
+      var hundreds = output.splice(0, 1);
+      return transforms[hundreds] + " hundred " + transforms[output[1]];
+    } else {
+      var hundreds = output.splice(0, 1);
+      return transforms[hundreds] + " hundred " + transforms[output[0] * 10] + " " + transforms[output[1]];
+    }
   }
   else {
     return transforms[output[0] * 10] + " " + transforms[output[1]];
