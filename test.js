@@ -38,6 +38,7 @@ test('convert five digit to words', function (t) {
 });
 
 test('convert six digit to words', function (t) {
+  t.equal(wordifier(201106), "two hundred one thousand one hundred six");
   t.equal(wordifier(900000), "nine hundred thousand");
   t.equal(wordifier(999999), "nine hundred ninety nine thousand nine hundred ninety nine");
   t.end();
