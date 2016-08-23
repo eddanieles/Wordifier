@@ -23,3 +23,22 @@ test('convert three digit to words', function (t) {
   t.equal(wordifier(999), "nine hundred ninety nine");
   t.end();
 });
+
+test('convert four digit to words', function (t) {
+  t.equal(wordifier(6000), "six thousand");
+  t.equal(wordifier(1001), "one thousand one");
+  t.equal(wordifier(7893), "seven thousand eight hundred ninety three");
+  t.end();
+});
+
+test('convert five digit to words', function (t) {
+  t.equal(wordifier(40000), "forty thousand");
+  t.equal(wordifier(10001), "ten thousand one");
+  t.end();
+});
+
+test('convert six digit to words', function (t) {
+  t.equal(wordifier(900000), "nine hundred thousand");
+  t.equal(wordifier(999999), "nine hundred ninety nine thousand nine hundred ninety nine");
+  t.end();
+});

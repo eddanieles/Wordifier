@@ -36,21 +36,61 @@ function wordifier(number){
       output.push(+sNumber.charAt(i));
   }
 
+  String.prototype.replaceAll = function(search, replacement) {
+    var target = this;
+    return target.replace(new RegExp(search, 'g'), replacement);
+  };
+
   if (transforms[number]) {
     return transforms[number];
   }
-  else if (output.length === 3){
-    if (output[1] === 0 && output[2] === 0) {
-      var hundreds = output.splice(0, 1);
-      return transforms[hundreds] + " hundred";
-    } else if (output[1] === 0){
-      var hundreds = output.splice(0, 1);
-      return transforms[hundreds] + " hundred " + transforms[output[1]];
+  else if (output.length === 6){
+    var thousands = parseInt(output.splice(0, 3).join().replaceAll(",", ""));
+    var rest = parseInt(output.join().replaceAll(",", ""));
+    if (rest === 000) {
+      return wordifier(thousands) + " thousand";
     } else {
-      var hundreds = output.splice(0, 1);
-      return transforms[hundreds] + " hundred " + transforms[output[0] * 10] + " " + transforms[output[1]];
+      return wordifier(thousands) + " thousand " + wordifier(rest);
     }
   }
+  else if (output.length === 5){
+    var thousands = parseInt(output.splice(0, 2).join().replaceAll(",", ""));
+    var rest = parseInt(output.join().replaceAll(",", ""));
+    if (rest === 000) {
+      return wordifier(thousands) + " thousand";
+    } else {
+      return wordifier(thousands) + " thousand " + wordifier(rest);
+    }
+  }
+  else if (output.length === 4){
+    var thousands = output.splice(0, 1);
+    var rest = parseInt(output.join().replaceAll(",", ""));
+    if (rest === 000) {
+      return transforms[thousands] + " thousand";
+    } else {
+      return transforms[thousands] + " thousand " + wordifier(rest);
+    }
+  }
+  else if (output.length === 3){
+    var hundreds = output.splice(0, 1);
+    var rest = parseInt(output.join().replaceAll(",", ""));
+    if (rest === 00) {
+      return transforms[hundreds] + " hundred";
+    } else {
+      return transforms[hundreds] + " hundred " + wordifier(rest);
+    }
+  }
+
+  // else if (string.includes("hundred")) {
+  //   var split = string.split(" hundred");
+  //   var hundreds = split[0];
+  //   var theRest = split[1].trim();
+  //   if (theRest === "") {
+  //     return transforms[hundreds] * 100;
+  //   } else {
+  //     return transforms[hundreds] * 100 + numberifier(theRest);
+  //   }
+  // }
   else {
     return transforms[output[0] * 10] + " " + transforms[output[1]];
   }
